@@ -14,38 +14,38 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/*复制*/
 .icon-iconset0119:before { content: "\e612"; }
-
+/*菜单*/
 .icon-caidan:before { content: "\e64f"; }
-
+/*分类*/
 .icon-leimupinleifenleileibie2:before { content: "\e7f8"; }
-
+/*标签*/
 .icon-biaoqian:before { content: "\e602"; }
-
+/*时间*/
 .icon-shijian:before { content: "\e6d3"; }
-
+/*圆点*/
 .icon-yuan:before { content: "\e62f"; }
-
+/*书本*/
 .icon-shu:before { content: "\e634"; }
-
+/*帽子*/
 .icon-guidangxiangmu:before { content: "\e660"; }
-
+/*人头*/
 .icon-guanyuwomen:before { content: "\e629"; }
-
+/*GitHub*/
 .icon-github:before { content: "\e6a4"; }
-
+/*文件夹*/
 .icon-folder_icon:before { content: "\e667"; }
-
+/*QQ*/
 .icon-QQ:before { content: "\e666"; }
-
+/*首页*/
 .icon-shouye:before { content: "\e620"; }
-
+/*搜索*/
 .icon-sousuo:before { content: "\e63c"; }
-
+/*浏览*/
 .icon-liulan:before { content: "\e647"; }
-
+/*日历*/
 .icon-rili:before { content: "\e62a"; }
-
+/*日历*/
 .icon-rili1:before { content: "\e611"; }
 

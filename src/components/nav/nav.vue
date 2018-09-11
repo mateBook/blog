@@ -48,7 +48,7 @@ export default {
           tabName: "search"
         }
       ],
-      isShow: true
+      isShow: false
     };
   },
   methods: {
@@ -122,10 +122,15 @@ export default {
   position: relative;
   width: 98% !important;
   margin: 0 auto;
+  color: #555;
+  cursor: pointer;
+}
+.navigation li:hover{
+  background-color: rgb(249,249,249);
+  color:black;
 }
 .navigation li i {
   font-size: 13px;
-  color: rgb(85, 85, 85);
   margin-right: 10px;
   background-color: white;
 }
@@ -144,9 +149,9 @@ export default {
   background-color: #bbb;
 }
 .on {
-  opacity: 1;
-  height: 160px;
-  overflow: hidden;
+  opacity: 1 !important;
+  height: 160px !important;
+  overflow: hidden !important;
   padding-top: 0 !important;
 }
 </style>
