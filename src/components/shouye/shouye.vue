@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="describe box-shadow">
+        <div class="describe box-shadow" ref="classifyfix">
             <h2>
                 <a href="">macOS Mojave 10.14安装中常见的问题及解决方法</a>
             </h2>
@@ -29,13 +29,17 @@
 
 <script>
     export default {
-        
+        mounted () {
+        this.bus.$on('toChangeTitle', function (title) {
+            console.log(title)
+        })
+    },
     }
 </script>
 
 <style scoped>
 .describe{
-    padding:40px;  
+    padding:33px;  
 }
 .describe h2{
     font-size: 22px;
@@ -61,6 +65,7 @@
 .describe-body{
     font-size: 14px;
     margin-top: 70px;
+    min-height: 56px;
 }
 .describe-button{
     text-align: center;

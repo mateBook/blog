@@ -4,10 +4,12 @@
       <div class="left fl">
         <leftnav @headCallBack="getTab"></leftnav>
       </div>
-      <div class="content-wrap fr box-shadow">
-        <shouye :is="currentTab" keep-alive ></shouye>
-      </div>
-      <div class="sidebr box-shadow">
+      <transition name="fade">
+        <div class="content-wrap fr box-shadow animate">
+          <shouye :is="currentTab" keep-alive ></shouye>
+        </div>
+      </transition>
+      <div class="sidebr box-shadow" ref='sidebrRef'>
         <h2>DalianSky</h2>
         <p>一些平时学习笔记以及收集到的好的文章</p>
 
@@ -56,6 +58,7 @@ import leftnav from '@/components/nav/nav'
 import shouye from '@/components/shouye/shouye'
 import about from '@/components/about/about'
 import classify from '@/components/classify/classify'
+import guian from '@/components/guian/guian'
 import search from '@/components/search/search'
 
 export default {
@@ -65,19 +68,26 @@ export default {
     shouye,
     about,
     classify,
-    search
+    search,
+    guian
   },
   data() {
     return {
-      currentTab: 'shouye'
+      currentTab: 'shouye',
+      show:true
     }
   },
   methods:{
     getTab(i){
-      console.log(i)
       this.currentTab = i
     }
-  }
+  },
+  mounted () {
+        this.bus.$on('toChangeTitle', function (title) {
+            console.log('APP'+title)
+            console.log(this.$refs)
+        })
+    },
 }
 </script>
 
@@ -99,11 +109,14 @@ export default {
 .content-wrap{
   width:calc(100% - 252px);
   background-color: white;
+  margin-left: 10px;
+  /* margin-right: 10px; */
+  box-sizing: border-box;
 }
 .sidebr{
   position: absolute;
   float: left;
-  margin-top: 315px;
+  margin-top: 355px;
   width: 240px;
   background: white;
   min-height: 350px;
@@ -182,5 +195,18 @@ export default {
 }
 .links p a{
   color:#999;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+@keyframes fadeinT{
+    0%{opacity:0;transform:translateY(-50px);}
+    100%{opacity:1;transform:translateY(0);}
+}
+.animate{
+  animation: fadeinT 2s;
 }
 </style>

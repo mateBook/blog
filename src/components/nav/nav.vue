@@ -1,14 +1,14 @@
 <template>
   <div class="box-shadow left-content">
-    <div class="left_nav">
+    <div class="left_nav" >
       <i class="iconfont icon-caidan menu" @click='menuClick()'></i>
       <div class="nice_name">黑果小兵的部落阁</div>
       <div class="nice_name_en">Daliansky的空中楼阁</div>
     </div>
     <!-- 面包屑导航  -->
    
-     <ul class="navigation" :class="{ on : isShow }"> 
-      <li v-for="(item,index) in navigation" :class="item.active" @click="handleClick(item.tabName)">
+     <ul class="navigation" :class="{ on : isShow }" @click="changeTitle"> 
+      <li v-for="(item,index) in navigation" :class="item.active" @click="handleClick(item.tabName,index)">
         <i :class="item.className" class="iconfont"></i>
         {{ item.name }}
       </li>
@@ -31,32 +31,47 @@ export default {
         {
           name: "关于",
           className: "icon-guanyuwomen",
-          tabName: "about"
+          tabName: "about",
+          active:''
         },
         {
           name: "分类",
           className: "icon-leimupinleifenleileibie2",
-          tabName: "classify"
+          tabName: "classify",
+          active:''
         },
-        // {
-        //   name: "归案",
-        //   className: "icon-guidangxiangmu"
-        // },
+        {
+          name: "归案",
+          className: "icon-guidangxiangmu",
+          tabName:'guian',
+          active:''
+        },
         {
           name: "搜索",
           className: "icon-sousuo",
-          tabName: "search"
+          tabName: "search",
+          active:''
         }
       ],
       isShow: false
     };
   },
   methods: {
-    handleClick(i) {
+    handleClick(i,index) {
+     
+      this.navigation.map(function (item){
+        item.active = '';
+      })
+
+      this.navigation[index].active = 'active';
+      
       this.$emit("headCallBack", i);
     },
     menuClick() {
       this.isShow = !this.isShow;
+    },
+    changeTitle () {
+      this.bus.$emit('toChangeTitle','首页')
     }
   }
 };
