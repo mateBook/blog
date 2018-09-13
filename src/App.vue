@@ -5,11 +5,11 @@
         <leftnav @headCallBack="getTab"></leftnav>
       </div>
       <transition name="fade">
-        <div class="content-wrap fr box-shadow animate">
+        <div class="content-wrap fr box-shadow animate" ref='contentRef'>
           <shouye :is="currentTab" keep-alive ></shouye>
         </div>
       </transition>
-      <div class="sidebr box-shadow" ref='sidebrRef'>
+      <div class="sidebr box-shadow animateOut" ref='sidebrRef'>
         <h2>DalianSky</h2>
         <p>一些平时学习笔记以及收集到的好的文章</p>
 
@@ -79,13 +79,26 @@ export default {
   },
   methods:{
     getTab(i){
-      this.currentTab = i
+      this.currentTab = i;
     }
   },
   mounted () {
+        var _this = this;
         this.bus.$on('toChangeTitle', function (title) {
             console.log('APP'+title)
-            console.log(this.$refs)
+
+            _this.$refs.contentRef.classList.remove("animate")
+            setTimeout(function(){
+               _this.$refs.contentRef.classList.add('animate')
+            },200)
+            
+
+             _this.$refs.sidebrRef.classList.remove("animateOut")
+            setTimeout(function(){
+               _this.$refs.sidebrRef.classList.add('animateOut')
+            },200)
+            //console.log(_this.$refs.sidebrRef.classList.add('animate'))
+            
         })
     },
 }
@@ -206,7 +219,14 @@ export default {
     0%{opacity:0;transform:translateY(-50px);}
     100%{opacity:1;transform:translateY(0);}
 }
+@keyframes fadeouT{
+  0%{opacity:0;transform:translateY(50px);}
+  100%{opacity:1;transform:translateY(0);}
+}
 .animate{
   animation: fadeinT 2s;
+}
+.animateOut{
+  animation: fadeouT 2s;
 }
 </style>
