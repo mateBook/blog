@@ -5,8 +5,8 @@
         <leftnav @headCallBack="getTab"></leftnav>
       </div>
       <transition name="fade">
-        <div class="content-wrap fr box-shadow animate" ref='contentRef'>
-          <shouye :is="currentTab" keep-alive ></shouye>
+        <div class="content-wrap fr" ref='contentRef'>
+          <shouye :is="currentTab" keep-alive class="animate"></shouye>
         </div>
       </transition>
       <div class="sidebr box-shadow animateOut" ref='sidebrRef'>
@@ -90,13 +90,13 @@ export default {
             _this.$refs.contentRef.classList.remove("animate")
             setTimeout(function(){
                _this.$refs.contentRef.classList.add('animate')
-            },200)
+            },0)
             
 
              _this.$refs.sidebrRef.classList.remove("animateOut")
             setTimeout(function(){
                _this.$refs.sidebrRef.classList.add('animateOut')
-            },200)
+            },0)
             //console.log(_this.$refs.sidebrRef.classList.add('animate'))
             
         })
@@ -121,7 +121,7 @@ export default {
 }
 .content-wrap{
   width:calc(100% - 252px);
-  background-color: white;
+  /* background-color: white; */
   margin-left: 10px;
   /* margin-right: 10px; */
   box-sizing: border-box;
@@ -216,11 +216,11 @@ export default {
   opacity: 0;
 }
 @keyframes fadeinT{
-    0%{opacity:0;transform:translateY(-50px);}
+    0%{opacity:0;transform:translateY(-20px);}
     100%{opacity:1;transform:translateY(0);}
 }
 @keyframes fadeouT{
-  0%{opacity:0;transform:translateY(50px);}
+  0%{opacity:0;transform:translateY(20px);}
   100%{opacity:1;transform:translateY(0);}
 }
 .animate{

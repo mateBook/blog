@@ -24,66 +24,138 @@
                 <a href="">阅读全文 »</a>
             </div>
         </div>
+
+        <!-- 底部分页 -->
+        <div class="page box-shadow">
+            <i class="iconfont icon-cc-left" @click="setCurrent(currenPage - 1)" v-show="leftShow"></i>
+            <span 
+              v-for='(p,index) in grouplist' 
+              :class="{'active' : currenPage == index+1}"
+              @click="setCurrent(index + 1)"
+            >
+              {{ index + 1 }}
+            </span>
+            <i class="iconfont icon-cc-right" @click="setCurrent(currenPage + 1)" v-show="rightShow"></i>
+
+        </div>
     </div>
 </template>
 
 <script>
-    export default {
-        mounted () {
-        this.bus.$on('toChangeTitle', function (title) {
-            console.log(title)
-        })
-    },
+export default {
+  data() {
+    return {
+      currenPage: 1, //当前页数
+      totalPage: 7, //总页数
+      grouplist: [1, 2, 3, 4, 5, 6, 7], //当前分页显示内容
+      leftShow:false, //上一页
+      rightShow:true  //下一页
+    };
+  },
+  mounted() {
+    this.bus.$on("toChangeTitle", function(title) {
+      console.log(title);
+    });
+  },
+  methods: {
+    setCurrent(ind) { //设置当前页数函数 
+    
+      ind < 1
+        ? ind = 1
+        : this.currenPage = ind;
+      
+      ind > this.totalPage
+        ? (this.currenPage = this.totalPage)
+        : (this.currenPage = ind);
+        console.log(this.currenPage)
     }
+  },
+  watch: {
+    currenPage(curVal,oldVal) { //监听当前页数变化
+      curVal>1 ? (this.leftShow = true) : (this.leftShow = false);
+      (curVal == this.totalPage) ? (this.rightShow = false) : (this.rightShow = true);
+      
+    }
+  },
+};
 </script>
 
 <style scoped>
-.describe{
-    padding:33px;  
+.describe {
+  padding: 33px;
+  background-color: white;
 }
-.describe h2{
-    font-size: 22px;
-    font-weight: 400;
+.describe h2 {
+  font-size: 22px;
+  font-weight: 400;
 }
-.describe h2 a{
-    color:#555;
+.describe h2 a {
+  color: #555;
 }
 .meta {
-    font-size: 12px;
-    color:#999;
+  font-size: 12px;
+  color: #999;
 }
-.meta i{
-    font-size: 12px;
+.meta i {
+  font-size: 12px;
 }
-.icon-rili,.icon-rili{
-    font-size: 14px !important;
+.icon-rili,
+.icon-rili1 {
+  font-size: 14px !important;
 }
-.divider{
-    margin: 0 8px;
-    border-left: 1px solid #999;
+.divider {
+  margin: 0 8px;
+  border-left: 1px solid #999;
 }
-.describe-body{
-    font-size: 14px;
-    margin-top: 70px;
-    min-height: 56px;
+.describe-body {
+  font-size: 14px;
+  margin-top: 70px;
+  min-height: 56px;
 }
-.describe-button{
-    text-align: center;
-    width: 112px;
-    height: 30px;
-    border: 2px solid black;
-    margin: 45px auto 0px;
-    border-radius: 3px;
-    cursor: pointer;
+.describe-button {
+  text-align: center;
+  width: 112px;
+  height: 30px;
+  border: 2px solid black;
+  margin: 45px auto 0px;
+  border-radius: 3px;
+  cursor: pointer;
 }
-.describe-button a{
-    color: #555;
-    text-decoration: none;
+.describe-button a {
+  color: #555;
+  text-decoration: none;
 }
-.describe-button:hover{
-    background-color: black;
+.describe-button:hover {
+  background-color: black;
 }
-.describe-button:hover a{
-    color: white !important;
+.describe-button:hover a {
+  color: white !important;
+}
+.page {
+  margin-top: 15px;
+  background-color: white;
+  height: 60px;
+  line-height: 60px;
+}
+.page span,
+.page i {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 16px;
+  color: #555;
+  margin-left: 10px;
+  border-top: 1px solid rgb(238, 238, 238);
+  cursor: pointer;
+}
+.page span.active {
+  color: #fff;
+  background: #ccc;
+  border-top-color: #ccc !important;
+}
+.page span:hover,
+.page i:hover {
+  border-top-color: #000;
 }
 </style>
