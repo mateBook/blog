@@ -9,7 +9,7 @@
           <shouye :is="currentTab" keep-alive class="animate"></shouye>
         </div>
       </transition>
-      <div class="sidebr box-shadow animateOut" ref='sidebrRef'>
+      <div class="sidebr box-shadow animateOut" ref='sidebrRef'  v-bind:class="[isFixed ? 'showFixed' : 'hideFixed']">
         <h2>DalianSky</h2>
         <p>一些平时学习笔记以及收集到的好的文章</p>
 
@@ -54,134 +54,139 @@
 </template>
 
 <script>
-import leftnav from '@/components/nav/nav'
-import shouye from '@/components/shouye/shouye'
-import about from '@/components/about/about'
-import classify from '@/components/classify/classify'
-import guian from '@/components/guian/guian'
-import search from '@/components/search/search'
+import leftnav from "@/components/nav/nav";
+import shouye from "@/components/shouye/shouye";
+import about from "@/components/about/about";
+import classify from "@/components/classify/classify";
+import guian from "@/components/guian/guian";
+import search from "@/components/search/search";
+import vlabel from "@/components/label/label";
 
 export default {
-  name: 'App',
-  components:{
+  name: "App",
+  components: {
     leftnav,
     shouye,
     about,
     classify,
     search,
-    guian
+    guian,
+    vlabel
   },
   data() {
     return {
-      currentTab: 'shouye',
-      show:true
-    }
+      currentTab: "shouye",
+      show: true,
+      isFixed: false
+    };
   },
-  methods:{
-    getTab(i){
+  methods: {
+    getTab(i) {
       this.currentTab = i;
+    },
+    handleScroll() {
+      var scrolltop = window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      scrolltop >= 404 ? (this.isFixed = true) : (this.isFixed = false);
     }
   },
-  mounted () {
-        var _this = this;
-        this.bus.$on('toChangeTitle', function (title) {
-            console.log('APP'+title)
+  mounted() {
+    //监听scroll滚动
+    window.addEventListener("scroll", this.handleScroll);
 
-            _this.$refs.contentRef.classList.remove("animate")
-            setTimeout(function(){
-               _this.$refs.contentRef.classList.add('animate')
-            },0)
-            
+    var _this = this;
 
-             _this.$refs.sidebrRef.classList.remove("animateOut")
-            setTimeout(function(){
-               _this.$refs.sidebrRef.classList.add('animateOut')
-            },0)
-            //console.log(_this.$refs.sidebrRef.classList.add('animate'))
-            
-        })
-    },
-}
+    this.bus.$on("toChangeTitle", function(title) {
+      _this.$refs.contentRef.classList.remove("animate");
+
+      setTimeout(function() {
+        _this.$refs.contentRef.classList.add("animate");
+      }, 0);
+
+      _this.$refs.sidebrRef.classList.remove("animateOut");
+      setTimeout(function() {
+        _this.$refs.sidebrRef.classList.add("animateOut");
+      }, 0);
+    });
+  }
+};
 </script>
 
 <style>
-@import './assets/css/base.css';
-@import './assets/font/iconfont.css';
+@import "./assets/css/base.css";
+@import "./assets/font/iconfont.css";
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-.wrap{
+.wrap {
   width: 75%;
   margin: 10px auto 0;
   background-color: pink;
-  position:relative;
+  position: relative;
 }
-.content-wrap{
-  width:calc(100% - 252px);
-  /* background-color: white; */
+.content-wrap {
+  width: calc(100% - 252px);
   margin-left: 10px;
-  /* margin-right: 10px; */
   box-sizing: border-box;
 }
-.sidebr{
+.sidebr {
   position: absolute;
   float: left;
-  margin-top: 355px;
+  margin-top: 396px;
   width: 240px;
   background: white;
   min-height: 350px;
-  padding:15px 13px;
+  padding: 15px 13px;
   box-sizing: border-box;
 }
-.sidebr h2{
+.sidebr h2 {
   color: black;
   font-weight: bold;
   text-align: center;
   font-size: 14px;
 }
-.sidebr p{
-  color:#999;
+.sidebr p {
+  color: #999;
 }
-.classify-content{
+.classify-content {
   margin-top: 22px;
   display: flex;
-  justify-content:center;
+  justify-content: center;
 }
-.classify-content div{
+.classify-content div {
   width: 45px;
   cursor: pointer;
 }
-.classify-content div:nth-child(2){
-  border-left: 1px solid rgb(238,238,238);
-  border-right: 1px solid rgb(238,238,238);
+.classify-content div:nth-child(2) {
+  border-left: 1px solid rgb(238, 238, 238);
+  border-right: 1px solid rgb(238, 238, 238);
 }
-.classify-content div p{
-  color:#555;
+.classify-content div p {
+  color: #555;
   font-size: 16px;
   font-weight: bold;
 }
-.classify-content div a{
-  color:#999;
-  text-decoration:none;
+.classify-content div a {
+  color: #999;
+  text-decoration: none;
 }
-.classify-content div a span:first-child{
+.classify-content div a span:first-child {
   color: #555;
   font-weight: bold;
   font-size: 16px;
 }
-.classify-content div a:hover span:first-child{
+.classify-content div a:hover span:first-child {
   color: black;
 }
-.classify-content div a span{
+.classify-content div a span {
   display: block;
   height: 25px !important;
   line-height: 25px;
 }
-.RSS{
-  color:#fc6423;
+.RSS {
+  color: #fc6423;
   font-weight: 500;
   margin-top: 15px;
   border-bottom: 1px dotted #999;
@@ -189,44 +194,65 @@ export default {
   height: 33px;
   line-height: 33px;
 }
-.RSS-content>div{
+.RSS-content > div {
   width: 105px;
   margin-top: 15px;
   border-radius: 5px;
-  color:rgb(85,85,85);
+  color: rgb(85, 85, 85);
   cursor: pointer;
   font-size: 14px;
 }
-.RSS-content>div:hover{
-  background-color: rgb(238,238,238);
-  color:black;
+.RSS-content > div:hover {
+  background-color: rgb(238, 238, 238);
+  color: black;
 }
-.links{
+.links {
   width: 100%;
   margin-top: 20px;
-  border-top:1px dotted #999;
+  border-top: 1px dotted #999;
 }
-.links p a{
-  color:#999;
+.links p a {
+  color: #999;
 }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-@keyframes fadeinT{
-    0%{opacity:0;transform:translateY(-20px);}
-    100%{opacity:1;transform:translateY(0);}
+@keyframes fadeinT {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-@keyframes fadeouT{
-  0%{opacity:0;transform:translateY(20px);}
-  100%{opacity:1;transform:translateY(0);}
+@keyframes fadeouT {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate{
+.animate {
   animation: fadeinT 2s;
 }
-.animateOut{
+.animateOut {
   animation: fadeouT 2s;
+}
+.showFixed {
+  position:fixed;
+  margin-top:0px;
+}
+.hideFixed {
+  position: absolute;;
+  margin-top:396px;
 }
 </style>

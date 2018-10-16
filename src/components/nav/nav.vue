@@ -35,6 +35,12 @@ export default {
           active:''
         },
         {
+          name: "标签",
+          className: "icon-biaoqian",
+          tabName: "vlabel",
+          active:''
+        },
+        {
           name: "分类",
           className: "icon-leimupinleifenleileibie2",
           tabName: "classify",
@@ -53,7 +59,8 @@ export default {
           active:''
         }
       ],
-      isShow: false
+      isShow: false,
+      isFixed: false
     };
   },
   methods: {
@@ -72,7 +79,8 @@ export default {
     },
     changeTitle () {
       this.bus.$emit('toChangeTitle','首页')
-    }
+    },
+   
   }
 };
 </script>
@@ -165,7 +173,7 @@ export default {
 }
 .on {
   opacity: 1 !important;
-  height: 160px !important;
+  height: 200px !important;
   overflow: hidden !important;
   padding-top: 0 !important;
 }

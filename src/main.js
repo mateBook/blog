@@ -6,6 +6,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+/**兄弟组件间通讯需要的实例 */
 let bus = new Vue()
 Vue.prototype.bus = bus
 

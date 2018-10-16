@@ -29,11 +29,11 @@
         <div class="page box-shadow">
             <i class="iconfont icon-cc-left" @click="setCurrent(currenPage - 1)" v-show="leftShow"></i>
             <span 
-              v-for='(p,index) in grouplist' 
+              v-for='(p,index) in groupList' 
               :class="{'active' : currenPage == index+1}"
               @click="setCurrent(index + 1)"
             >
-              {{ index + 1 }}
+              {{ p }}
             </span>
             <i class="iconfont icon-cc-right" @click="setCurrent(currenPage + 1)" v-show="rightShow"></i>
 
@@ -47,9 +47,8 @@ export default {
     return {
       currenPage: 1, //当前页数
       totalPage: 7, //总页数
-      grouplist: [1, 2, 3, 4, 5, 6, 7], //当前分页显示内容
-      leftShow:false, //上一页
-      rightShow:true  //下一页
+      leftShow: false, //上一页
+      rightShow: true //下一页
     };
   },
   mounted() {
@@ -58,25 +57,50 @@ export default {
     });
   },
   methods: {
-    setCurrent(ind) { //设置当前页数函数 
-    
-      ind < 1
-        ? ind = 1
-        : this.currenPage = ind;
-      
+    setCurrent(ind) {
+      //设置当前页数函数
+
+      ind < 1 ? (ind = 1) : (this.currenPage = ind);
+
       ind > this.totalPage
         ? (this.currenPage = this.totalPage)
         : (this.currenPage = ind);
-        console.log(this.currenPage)
+      console.log(this.currenPage);
+      console.log(this.groupList);
+      this.groupList = [];
     }
   },
   watch: {
-    currenPage(curVal,oldVal) { //监听当前页数变化
-      curVal>1 ? (this.leftShow = true) : (this.leftShow = false);
-      (curVal == this.totalPage) ? (this.rightShow = false) : (this.rightShow = true);
+    currenPage(curVal, oldVal) {
+      //监听当前页数变化
+      curVal > 1 ? (this.leftShow = true) : (this.leftShow = false);
+      curVal == this.totalPage
+        ? (this.rightShow = false)
+        : (this.rightShow = true);
       
+      this.groupList;
     }
   },
+  computed: {
+    groupList() {
+      var its = [];
+
+      //当totalPage小于4时
+      if (this.totalPage <= 4) {
+        //当totalPage=1时
+        (this.totalPage = 1) && (this.rightShow = false);
+        for (var i = 0; i < this.totalPage; i++) {
+          its.push(i + 1);
+        }
+        return its;
+      }
+
+      //当totalPage大于4时
+      if (this.totalPage > 4) {
+        return [1, 2, "...", this.totalPage];
+      }
+    }
+  }
 };
 </script>
 
