@@ -6,7 +6,8 @@
       </div>
       <transition name="fade">
         <div class="content-wrap fr" ref='contentRef'>
-          <shouye :is="currentTab" keep-alive class="animate"></shouye>
+          <!-- <shouye :is="currentTab" keep-alive class="animate"></shouye> -->
+          <router-view class="animate"/>
         </div>
       </transition>
       <div class="sidebr box-shadow animateOut" ref='sidebrRef'  v-bind:class="[isFixed ? 'showFixed' : 'hideFixed']">
@@ -100,7 +101,7 @@ export default {
 
       setTimeout(function() {
         _this.$refs.contentRef.classList.add("animate");
-      }, 0);
+      }, 10);
 
       _this.$refs.sidebrRef.classList.remove("animateOut");
       setTimeout(function() {

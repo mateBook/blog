@@ -7,11 +7,13 @@
     </div>
     <!-- 面包屑导航  -->
    
-     <ul class="navigation" :class="{ on : isShow }" @click="changeTitle"> 
-      <li v-for="(item,index) in navigation" :class="item.active" @click="handleClick(item.tabName,index)">
+     <ul class="navigation" :class="{ on : isShow }" @click="changeTitle">
+      <router-link v-for="(item,index) in navigation" :to="item.tabName"> 
+      <li  :class="item.active" @click="handleClick(item.tabName,index)">
         <i :class="item.className" class="iconfont"></i>
         {{ item.name }}
       </li>
+      </router-link>
      </ul>
     
   </div>
@@ -26,36 +28,36 @@ export default {
           name: "首页",
           className: "icon-shouye",
           active: "active",
-          tabName: "shouye"
+          tabName: "/shouye"
         },
         {
           name: "关于",
           className: "icon-guanyuwomen",
-          tabName: "about",
+          tabName: "/about",
           active:''
         },
         {
           name: "标签",
           className: "icon-biaoqian",
-          tabName: "vlabel",
+          tabName: "/vlabel",
           active:''
         },
         {
           name: "分类",
           className: "icon-leimupinleifenleileibie2",
-          tabName: "classify",
+          tabName: "/classify",
           active:''
         },
         {
           name: "归案",
           className: "icon-guidangxiangmu",
-          tabName:'guian',
+          tabName:'/guian',
           active:''
         },
         {
           name: "搜索",
           className: "icon-sousuo",
-          tabName: "search",
+          tabName: "/search",
           active:''
         }
       ],
@@ -133,6 +135,9 @@ export default {
   transition:all 0.5s;
   height: 0px;
   overflow: hidden;
+}
+.navigation a{
+  text-decoration: none;
 }
 .navigation li {
   font-size: 13px;

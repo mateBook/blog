@@ -1,6 +1,17 @@
 <template>
     <div class="content">
-       <router-view/>
+
+        <div class="labels">
+            <h1>标签</h1>
+            <p>目前共计155个标签</p>
+            <div class="tabs">
+                <span v-for="item in tab" :class="item.classify">{{ item.text }}</span>
+                
+            </div>
+            <router-link to="/vlabel/labelDetail">路由跳转</router-link>
+            <!-- <router-view/> -->
+        </div>
+        
     </div>
 </template>
 
@@ -42,7 +53,6 @@ export default {
    .tabs{
        text-align:left;
        margin-top: 20px;
-
    }
    .tabs span{
        border-bottom: 1px solid #b9b9b9;
