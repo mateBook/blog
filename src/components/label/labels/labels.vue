@@ -5,11 +5,12 @@
             <h1>标签</h1>
             <p>目前共计155个标签</p>
             <div class="tabs">
-                <span v-for="item in tab" :class="item.classify">{{ item.text }}</span>
                 
+                <router-link :to="{ name: 'labelDetail', params: { id: item.text}}" v-for="item in tab">
+                    <span  :class="item.classify">{{ item.text }}</span>
+                </router-link>
             </div>
-            <router-link to="/vlabel/labelDetail">路由跳转</router-link>
-            <!-- <router-view/> -->
+            
         </div>
         
     </div>
@@ -25,11 +26,11 @@ export default {
                     classify:'first'
                 }
                 ,{
-                    text:'hmtl',
+                    text:'nodeJs',
                     classify:'second'
                 }
                 ,{
-                    text:'hmtl',
+                    text:'PHP',
                     classify:''
                 }
             ]

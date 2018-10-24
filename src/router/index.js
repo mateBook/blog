@@ -10,6 +10,9 @@ import search from '@/components/search/search'
 import labels from '@/components/label/labels/labels'
 import labelDetail from '@/components/label/labelDetail/labelDetail'
 
+import difference from '@/components/classify/difference/difference'
+import classifyDetail from '@/components/classify/classifyDetail/classifyDetail'
+
 Vue.use(Router)
 
 export default new Router({
@@ -29,15 +32,20 @@ export default new Router({
    },
    {
      path:'/classify',
-     component:classify
+     component:classify,
+     children:[
+       {path:'/',redirect:'difference'},
+       {path:'difference',component:difference},
+       {path:'classifyDetail/:id',component:classifyDetail,name:'classifyDetail'}
+     ]
    },
    {
      path:'/vlabel',
      component:vlabel,
      children:[
-      {path:'/',redirect:'labels'},
-      {path:'labels',component:labels},
-      {path:'labelDetail',component:labelDetail},
+      {path:'/',redirect:'labels',name:'labels'},
+      {path:'labels',component:labels,name:'labels'},
+      {path:'labelDetail/:id',component:labelDetail,name:'labelDetail'},
      ]
    },
    {
