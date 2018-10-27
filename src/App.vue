@@ -136,7 +136,7 @@ export default {
   position: absolute;
   float: left;
   margin-top: 396px;
-  width: 240px;
+  width: 200px;
   background: white;
   min-height: 350px;
   padding: 15px 13px;
@@ -196,7 +196,7 @@ export default {
   line-height: 33px;
 }
 .RSS-content > div {
-  width: 105px;
+  width: 87px;
   margin-top: 15px;
   border-radius: 5px;
   color: rgb(85, 85, 85);

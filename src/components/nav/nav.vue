@@ -15,7 +15,24 @@
       </li>
       </router-link>
      </ul>
-    
+     <ul class="outer"  :class="{ hit : isShow }">
+       <li @click="showMaster()">
+         <i class="iconfont icon-sousuo"></i>
+          搜索
+       </li>
+     </ul>
+    <!-- search弹窗 -->
+    <div class="master" v-if="isShowMaster" @click="hideMaster()">
+      <div class="master_content" @click.stop>
+        <div class="master_content_head">
+          <span class="iconfont icon-sousuo"></span>
+          <div>
+              <input type="text" placeholder="搜索...">
+          </div>
+          <span class="iconfont icon-error btn_close" @click="hideMaster()"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,55 +51,58 @@ export default {
           name: "关于",
           className: "icon-guanyuwomen",
           tabName: "/about",
-          active:''
+          active: ""
         },
         {
           name: "标签",
           className: "icon-biaoqian",
           tabName: "/vlabel",
-          active:''
+          active: ""
         },
         {
           name: "分类",
           className: "icon-leimupinleifenleileibie2",
           tabName: "/classify",
-          active:''
+          active: ""
         },
         {
           name: "归案",
           className: "icon-guidangxiangmu",
-          tabName:'/guian',
-          active:''
-        },
-        {
-          name: "搜索",
-          className: "icon-sousuo",
-          tabName: "/search",
-          active:''
+          tabName: "/guian",
+          active: ""
         }
+        // {
+        //   name: "搜索",
+        //   className: "icon-sousuo",
+        //   tabName: "/search",
+        //   active:''
+        // }
       ],
       isShow: false,
-      isFixed: false
+      isFixed: false,
+      isShowMaster: false
     };
   },
   methods: {
-    handleClick(i,index) {
-     
-      this.navigation.map(function (item){
-        item.active = '';
-      })
-
-      this.navigation[index].active = 'active';
-      
+    handleClick(i, index) {
+      this.navigation.map(function(item) {
+        item.active = "";
+      });
+      this.navigation[index].active = "active";
       this.$emit("headCallBack", i);
     },
     menuClick() {
       this.isShow = !this.isShow;
     },
-    changeTitle () {
-      this.bus.$emit('toChangeTitle','首页')
+    changeTitle() {
+      this.bus.$emit("toChangeTitle", "首页");
     },
-   
+    showMaster() {
+      this.isShowMaster = true;
+    },
+    hideMaster() {
+      this.isShowMaster = false;
+    }
   }
 };
 </script>
@@ -93,7 +113,7 @@ export default {
   padding-bottom: 20px;
 }
 .left_nav {
-  width: 240px;
+  width: 200px;
   margin-right: 12px;
   background-color: rgb(146, 43, 43);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
@@ -127,19 +147,22 @@ export default {
   text-align: center;
   margin-top: 20px;
 }
+.outer {
+  height: 40px ;
+}
 .navigation {
   /* padding-top: 20px; */
   text-align: left;
   font-size: 13px;
   text-align: center;
-  transition:all 0.5s;
+  transition: all 0.5s;
   height: 0px;
   overflow: hidden;
 }
-.navigation a{
+.navigation a {
   text-decoration: none;
 }
-.navigation li {
+.navigation li,.outer li {
   font-size: 13px;
   height: 40px;
   line-height: 40px;
@@ -153,11 +176,15 @@ export default {
   color: #555;
   cursor: pointer;
 }
-.navigation li:hover{
-  background-color: rgb(249,249,249);
-  color:black;
+.navigation li:hover {
+  background-color: rgb(249, 249, 249);
+  color: black;
 }
-.navigation li i {
+.outer li:hover{
+  background-color: rgb(249, 249, 249);
+  color: black;
+}
+.navigation li i,.outer li i {
   font-size: 13px;
   margin-right: 10px;
   background-color: white;
@@ -181,5 +208,81 @@ export default {
   height: 200px !important;
   overflow: hidden !important;
   padding-top: 0 !important;
+}
+.hit{
+  opacity: 1 !important;
+  height: 40px !important;
+  overflow: hidden !important;
+  padding-top: 0 !important;
+}
+.master {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2080;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.master_content {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  margin-left: -350px;
+  width: 700px;
+  height: 80%;
+  padding: 0;
+  background: #fff;
+  color: #333;
+  z-index: 9999;
+  border-radius: 5px;
+}
+.master_content_head {
+  padding: 5px;
+  height: 36px;
+  background: #f5f5f5;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  text-align: left;
+  display: flex;
+}
+.master_content_head span {
+  display: inline-block;
+  font-size: 22px;
+  color: #999;
+  height: 36px;
+  width: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  top:-3px;
+}
+.btn_close {
+  border-left: 1px solid #eee;
+  cursor: pointer;
+  font-size: 18px !important;
+  top: 0 !important;
+}
+.master_content_head div {
+  display: inline-block;
+  width: calc(100% - 90px);
+  height: 36px;
+  line-height: 36px;
+  padding: 0 5px;
+  border: none;
+  background: transparent;
+  margin-bottom: 50px;
+}
+.master_content_head div input {
+  padding: 8px 0;
+  height: 20px;
+  display: block;
+  width: 100%;
+  outline: 0;
+  border: none;
+  background: 0 0;
+  vertical-align: middle;
+  font-size: 14px;
+  -webkit-writing-mode: horizontal-tb !important;
 }
 </style>
