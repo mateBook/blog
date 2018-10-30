@@ -130,7 +130,6 @@ export default {
 .content-wrap {
   width: calc(100% - 252px);
   margin-left: 10px;
-  box-sizing: border-box;
 }
 .sidebr {
   position: absolute;
@@ -222,32 +221,7 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-@keyframes fadeinT {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes fadeouT {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.animate {
-  animation: fadeinT 2s;
-}
-.animateOut {
-  animation: fadeouT 2s;
-}
+
 .showFixed {
   position:fixed;
   margin-top:0px;

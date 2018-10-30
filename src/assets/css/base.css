@@ -8,7 +8,7 @@
 html {
     background:white;
     color:black;
-    font-family: Lato,"PingFang SC","Microsoft YaHei",sans-serif;
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
 }
 /* 内外边距通常让各个浏览器样式的表现位置不同 */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
@@ -232,5 +232,46 @@ html{
 }
 }
 
+/* *::-webkit-scrollbar {display: none;}
+*::-moz-scrollbar {display: none;} */
 
 
+/*动画*/
+
+@keyframes fadeinT {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    30%{
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeouT {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    30%{
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate {
+    animation: fadeinT 3s;
+  }
+  .animateOut {
+    animation: fadeouT 2s;
+  }
+  .searchAnimate {
+    animation: fadeinT 0.5s;
+  }

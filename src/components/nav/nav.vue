@@ -7,7 +7,7 @@
     </div>
     <!-- 面包屑导航  -->
    
-     <ul class="navigation" :class="{ on : isShow }" @click="changeTitle">
+     <ul class="navigation searchAnimate" :class="{ on : isShow }" @click="changeTitle" ref="navList">
       <router-link v-for="(item,index) in navigation" :to="item.tabName"> 
       <li  :class="item.active" @click="handleClick(item.tabName,index)">
         <i :class="item.className" class="iconfont"></i>
@@ -15,7 +15,7 @@
       </li>
       </router-link>
      </ul>
-     <ul class="outer"  :class="{ hit : isShow }">
+     <ul class="outer searchAnimate"  :class="{ hit : isShow }" ref="search">
        <li @click="showMaster()">
          <i class="iconfont icon-sousuo"></i>
           搜索
@@ -96,6 +96,15 @@ export default {
     },
     changeTitle() {
       this.bus.$emit("toChangeTitle", "首页");
+      
+      //添加动画
+      this.$refs.navList.classList.remove("searchAnimate");
+      this.$refs.search.classList.remove("searchAnimate");
+      let _this = this;
+      setTimeout(function() {
+      _this.$refs.navList.classList.add("searchAnimate");
+      _this.$refs.search.classList.add("searchAnimate");
+      }, 10);
     },
     showMaster() {
       this.isShowMaster = true;
