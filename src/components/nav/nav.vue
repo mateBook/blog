@@ -2,8 +2,8 @@
   <div class="box-shadow left-content">
     <div class="left_nav" >
       <i class="iconfont icon-caidan menu" @click='menuClick()'></i>
-      <div class="nice_name">黑果小兵的部落阁</div>
-      <div class="nice_name_en">Daliansky的空中楼阁</div>
+      <div class="nice_name"><img src="@/assets/img/logo.png"></div>
+      <div class="nice_name_en">Focus on web development</div>
     </div>
     <!-- 面包屑导航  -->
    
@@ -96,7 +96,7 @@ export default {
     },
     changeTitle() {
       this.bus.$emit("toChangeTitle", "首页");
-      
+
       //添加动画
       this.$refs.navList.classList.remove("searchAnimate");
       this.$refs.search.classList.remove("searchAnimate");
@@ -149,12 +149,13 @@ export default {
   height: 36px;
   line-height: 36px;
   font-size: 20px;
+  margin-top: 10px;
 }
 .nice_name_en {
   font-size: 13px;
   color: #ddd;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 .outer {
   height: 40px ;
